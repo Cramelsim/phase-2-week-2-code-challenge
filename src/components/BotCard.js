@@ -1,7 +1,7 @@
 import React from "react";
 
 function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
-  const { id, name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
+  const { name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
 
   return (
     <div className="bot-card">
