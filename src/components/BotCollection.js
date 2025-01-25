@@ -1,29 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BotCard from "./BotCard";
 
-function BotCollection({ onAddToArmy, onDischarge }) {
-  const [bots, setBots] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8001/bots")
-      .then((response) => response.json())
-      .then((data) => setBots(data));
-  }, []);
-
+function BotCollection({ bots, onAddToArmy }) {
   return (
-    <section>
-      <h1>Bot Collection</h1>
-      <div className="bot-collection">
+    <div className="bot-collection">
+      <h2>Available Bots</h2>
+      <div className="bot-list">
         {bots.map((bot) => (
-          <BotCard
-            key={bot.id}
-            bot={bot}
-            onAddToArmy={onAddToArmy}
-            onDischarge={onDischarge}
-          />
+          <div key={bot.id} className="bot-card-container">
+            <BotCard bot={bot} onAddToArmy={onAddToArmy} />
+          </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 
