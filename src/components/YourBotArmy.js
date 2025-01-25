@@ -3,19 +3,24 @@ import BotCard from "./BotCard";
 
 function YourBotArmy({ army, onRemoveFromArmy, onDischarge }) {
   return (
-    <section>
-      <h1>Your Bot Army</h1>
-      <div className="your-bot-army">
-        {army.map((bot) => (
-          <BotCard
-            key={bot.id}
-            bot={bot}
-            onRemoveFromArmy={onRemoveFromArmy}
-            onDischarge={onDischarge}
-          />
-        ))}
-      </div>
-    </section>
+    <div className="your-bot-army">
+      <h2>Your Bot Army</h2>
+      {army.length === 0 ? (
+        <p>Your army is empty. Start enlisting bots!</p>
+      ) : (
+        <div className="bot-list">
+          {army.map((bot) => (
+            <div key={bot.id} className="bot-list-item">
+              <BotCard
+                bot={bot}
+                onRemoveFromArmy={onRemoveFromArmy}
+                onDischarge={onDischarge}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
