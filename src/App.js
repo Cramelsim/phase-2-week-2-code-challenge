@@ -1,53 +1,65 @@
-// App.js
 import React, { useState, useEffect } from "react";
 import "./App.css";
+
 import BotCollection from "./components/BotCollection";
 import YourBotArmy from "./components/YourBotArmy";
 
 function App() {
-  const [bots, setBots] = useState([]);
-  const [army, setArmy] = useState([]);
+  const [bots, setBots] = useState([]); // All bots
+  const [army, setArmy] = useState([]); // User's army
 
-  // Fetch bots
+  // Fetch bots on initial load
   useEffect(() => {
     fetch("http://localhost:8001/bots")
-      .then((response) => response.json())
-      .then((data) => setBots(data));
+      .then((res) => res.json())
+      .then((data) => setBots(data))
+      .catch((err) => console.error("Error fetching bots:", err));
   }, []);
-
-  // Add bot to army
+  
+  // Add a bot to the army
   const addToArmy = (bot) => {
-    if (!army.some((b) => b.id === bot.id)) {
+    if (!army.find((b) => b.id === bot.id)) {
       setArmy([...army, bot]);
     }
   };
 
-  // Remove bot from army
+  // Remove a bot from the army
   const removeFromArmy = (bot) => {
     setArmy(army.filter((b) => b.id !== bot.id));
   };
 
-  // Discharge bot
-  const dischargeBot = (botId) => {
-    fetch(`http://localhost:8001/bots/${botId}`, {
+  // Discharge a bot (delete from both frontend and backend)
+  const dischargeBot = (bot) => {
+    console.log(bot.id); // Correctly log the bot's ID
+    fetch(`http://localhost:8001/bots/${bot.id}`, { // Use bot.id instead of botId
       method: "DELETE",
     })
       .then(() => {
-        setArmy(army.filter((b) => b.id !== botId));
-        setBots(bots.filter((b) => b.id !== botId));
+        // Correctly remove the bot from both states
+        setArmy((prevArmy) => prevArmy.filter((b) => b.id !== bot.id));
+        setBots((prevBots) => prevBots.filter((b) => b.id !== bot.id));
       })
       .catch((error) => console.error("Error discharging bot:", error));
   };
-
+  
+  
   return (
     <div className="App">
-      <h1>Welcome to Bot Army Manager</h1>
+      <h1>Welcome to My Bot Army</h1>
+      {/* Bot collection */}
+      <BotCollection
+        bots={bots}
+        onAddToArmy={addToArmy}
+        onDischarge={dischargeBot}
+        onRemoveFromArmy={removeFromArmy}
+        army={army}
+      />
+      {/* User's army */}
       <YourBotArmy
         army={army}
         onRemoveFromArmy={removeFromArmy}
         onDischarge={dischargeBot}
       />
-      <BotCollection bots={bots} onAddToArmy={addToArmy} />
     </div>
   );
 }

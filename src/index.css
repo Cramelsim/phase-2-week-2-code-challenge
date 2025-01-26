@@ -5,14 +5,16 @@
   margin: 8px;
   text-align: center;
 }
-
+.bot-card .actions .enlist-btn{
+  background-color: blue;
+}
 .bot-collection, .your-bot-army {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 .bot-card .actions .discharge-btn {
-  background-color: red;
+  background-color: green;
   color: white;
   border: none;
   border-radius: 4px;
@@ -33,4 +35,40 @@
 
 .discharge {
   color: red;
+}
+/* BotCard.css */
+
+/* Remove button */
+button.remove-btn {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button.remove-btn:hover {
+  background-color: darkorange;
+}
+
+/* Discharge button */
+button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkred;
+}
+
+/* Enlisted message style */
+.enlisted-message {
+  color: green;
+  font-weight: bold;
 }
