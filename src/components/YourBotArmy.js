@@ -14,7 +14,7 @@ function YourBotArmy({ army, onRemoveFromArmy, onDischarge }) {
               <BotCard
                 bot={bot}
                 onRemoveFromArmy={onRemoveFromArmy}
-                onDischarge={onDischarge}
+                onDischarge={onDischarge} // Pass the discharge function
               />
             </div>
           ))}

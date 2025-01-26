@@ -1,7 +1,8 @@
+// BotCard.js
 import React from "react";
 
 function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
-  const { id, name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
+  const { name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
 
   return (
     <div className="bot-card">
@@ -14,8 +15,22 @@ function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
       <p><strong>Catchphrase:</strong> {catchphrase}</p>
       <div className="actions">
         {onAddToArmy && <button onClick={() => onAddToArmy(bot)}>Enlist</button>}
-        {onRemoveFromArmy && <button onClick={() => onRemoveFromArmy(bot)}>Release</button>}
-        <button onClick={() => onDischarge(bot.id)} className="discharge">Discharge</button>
+        {onRemoveFromArmy && <button onClick={() => onRemoveFromArmy(bot)}>Remove</button>}
+        {onDischarge && (
+          <button
+            onClick={() => onDischarge(bot.id)}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            x
+          </button>
+        )}
       </div>
     </div>
   );
