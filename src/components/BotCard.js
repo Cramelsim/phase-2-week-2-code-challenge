@@ -1,7 +1,7 @@
 // BotCard.js
-import React from "react";
+import React, { useState } from "react";
 
-function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
+function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge, isEnlisted }) {
   const { name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
 
   return (
@@ -14,9 +14,12 @@ function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
       <p><strong>Armor:</strong> {armor}</p>
       <p><strong>Catchphrase:</strong> {catchphrase}</p>
       <div className="actions">
-        {onAddToArmy && <button onClick={() => onAddToArmy(bot)}>Enlist</button>}
-        {onRemoveFromArmy && <button onClick={() => onRemoveFromArmy(bot)}>Remove</button>}
-        {onDischarge && (
+        {/* Enlist button */}
+        {!isEnlisted && (
+          <button onClick={() => onAddToArmy(bot)}>Enlist</button>
+        )}
+        {/* Discharge button */}
+        {isEnlisted && (
           <button
             onClick={() => onDischarge(bot.id)}
             style={{
@@ -26,11 +29,14 @@ function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge }) {
               padding: "5px 10px",
               borderRadius: "5px",
               cursor: "pointer",
+              marginLeft: "10px",
             }}
           >
             x
           </button>
         )}
+        {/* Message if bot is already enlisted */}
+        {isEnlisted && <p style={{ color: "green" }}>This bot is already enlisted!</p>}
       </div>
     </div>
   );
