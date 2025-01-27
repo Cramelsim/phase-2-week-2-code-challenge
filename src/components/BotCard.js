@@ -2,7 +2,7 @@ import React from "react";
 
 
 function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge, isEnlisted }) {
-    console.log("Bot object in BotCard:", bot);  // Check the structure of the bot object
+    console.log("Bot object in BotCard:", bot);  
   
     const { name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
     return (
@@ -15,13 +15,13 @@ function BotCard({ bot, onAddToArmy, onRemoveFromArmy, onDischarge, isEnlisted }
         <p><strong>Armor:</strong> {armor}</p>
         <p><strong>Catchphrase:</strong> {catchphrase}</p>
         <div className="actions">
-          {/* Enlist button */}
+          {/* Enlist button */}  
           {!isEnlisted && (
             <button onClick={() => onAddToArmy(bot)} className="enlist-btn">Enlist</button>
           )}
           
           {/* Discharge button */}
-          <button onClick={() => onDischarge(bot.id)}>X</button>
+          <button onClick={() => onDischarge(bot)}>X</button>
 
           {/* Remove from Army button */}
           {isEnlisted && (

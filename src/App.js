@@ -10,7 +10,7 @@ function App() {
 
   // Fetch bots on initial load
   useEffect(() => {
-    fetch("http://localhost:8001/bots")
+    fetch(`http://localhost:8001/bots`)
       .then((res) => res.json())
       .then((data) => setBots(data))
       .catch((err) => console.error("Error fetching bots:", err));
@@ -30,18 +30,26 @@ function App() {
 
   // Discharge a bot (delete from both frontend and backend)
   const dischargeBot = (bot) => {
-    console.log(bot.id); // Correctly log the bot's ID
-    fetch(`http://localhost:8001/bots/${bot.id}`, { // Use bot.id instead of botId
-      method: "DELETE",
+    console.log("Attempting to delete bot with ID:", bot.id);
+  
+    fetch(`http://localhost:8001/bots/${bot.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
-      .then(() => {
-        // Correctly remove the bot from both states
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // Remove bot from army and bots state based on current state
         setArmy((prevArmy) => prevArmy.filter((b) => b.id !== bot.id));
         setBots((prevBots) => prevBots.filter((b) => b.id !== bot.id));
       })
-      .catch((error) => console.error("Error discharging bot:", error));
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
-  
   
   return (
     <div className="App">

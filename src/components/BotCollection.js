@@ -27,7 +27,7 @@ function BotCollection({ onAddToArmy, onDischarge, army, onRemoveFromArmy }) {
             <BotCard
               key={bot.id}
               bot={bot}
-              onDischarge={onDischarge}
+              onDischarge={onDischarge} // Use the onDischarge prop here
               onRemoveFromArmy={onRemoveFromArmy}
               isEnlisted={true} // Marks the bot as part of the army
             />
@@ -46,7 +46,7 @@ function BotCollection({ onAddToArmy, onDischarge, army, onRemoveFromArmy }) {
               key={bot.id}
               bot={bot}
               onAddToArmy={onAddToArmy}
-              onDischarge={onDischarge}
+              onDischarge={onDischarge} // Use the onDischarge prop here as well
               onRemoveFromArmy={onRemoveFromArmy}
               isEnlisted={Array.isArray(army) && army.some((b) => b.id === bot.id)}
             />
